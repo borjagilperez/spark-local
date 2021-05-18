@@ -31,7 +31,7 @@ select opt in "${options[@]}"; do
             ;;
 
         "Essential, install")
-            sudo apt-get install -y build-essential curl git git-flow nano nmon snapd unzip wget
+            sudo apt-get install -y build-essential curl git git-flow jq nano nmon snapd unzip wget
 
             # Scala
             wget https://www.scala-lang.org/files/archive/scala-2.12.10.deb -P /tmp
