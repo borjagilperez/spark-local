@@ -5,6 +5,7 @@ options=(
     "OpenJDK 11, install" \
     "Essential, install" \
     "Essential GUI, install" \
+    "Upgrade and clean all" \
     "Miniconda 3, install" \
     "Recreate base environment" \
     "Update conda base" \
@@ -51,6 +52,13 @@ select opt in "${options[@]}"; do
             sudo snap install intellij-idea-community --classic
             sudo snap install pycharm-community --classic
             sudo update-alternatives --config x-terminal-emulator
+
+            break
+            ;;
+
+        "Upgrade and clean all")
+            sudo apt-get update && sudo apt-get upgrade -y
+            sudo apt-get autoremove -y && sudo apt-get autoclean
 
             break
             ;;
