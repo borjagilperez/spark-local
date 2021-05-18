@@ -1,8 +1,6 @@
 # spark-local
 
-Spark on local
-
-## Apache Spark
+Please, install essentials using [essential-local](https://www.github.com/borjagilperez/essential-local)
 
 Apache Spark 3.1.1 (Hadoop 3.2+) on local.
 
