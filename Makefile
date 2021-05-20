@@ -6,7 +6,7 @@ GIT = git
 SPARK = spark
 .PHONY: info $(GIT) $(SPARK)
 
-# $ make
+# $ make info
 info:
 	@echo "GIT: $(GIT)"
 	@echo "SPARK: $(SPARK)"
