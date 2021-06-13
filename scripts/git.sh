@@ -2,9 +2,11 @@
 
 PS3="Please select your choice: "
 options=(
-    "Init" \
+    "Init new repository" \
+    "Init existing repository" \
     "Fetch" \
     "Pull" \
+    "Pull branches & tags" \
     "Push branches & tags" \
     "Start feature" \
     "Finish feature" \
@@ -14,7 +16,7 @@ options=(
 
 select opt in "${options[@]}"; do
     case $opt in
-        "Init")
+        "Init new repository")
             read -p 'Username: ' user_name
             git config user.name $user_name
             read -p 'User email: ' user_email
@@ -33,6 +35,25 @@ select opt in "${options[@]}"; do
             break
             ;;
 
+        "Init existing repository")
+            read -p 'Username: ' user_name
+            git config user.name $user_name
+            read -p 'User email: ' user_email
+            git config user.email "$user_email"
+
+            git flow init
+            master_bname=$(cat ./.git/config | grep 'master = ' | awk -F' = ' 'NR==1{print $2}')
+            develop_bname=$(cat ./.git/config | grep 'develop = ' | awk -F' = ' 'NR==1{print $2}')
+
+            git checkout $master_bname
+            git branch -u origin/$master_bname $master_bname
+            git checkout $develop_bname
+            git branch -u origin/$develop_bname $develop_bname
+            git remote set-head origin -a
+
+            break
+            ;;
+
         "Fetch")
             git config credential.helper cache
             git fetch origin
@@ -43,6 +64,31 @@ select opt in "${options[@]}"; do
         "Pull")
             git config credential.helper cache
             git pull origin
+
+            break
+            ;;
+
+        "Pull branches & tags")
+            git status && echo ''
+            read -p 'Have you committed the changes? [y/N]: ' resp_commit
+            case $resp_commit in
+                'y'|'Y')
+                    git checkout $(cat ./.git/config | grep 'master = ' | awk -F' = ' 'NR==1{print $2}')
+                    git pull
+                    git checkout $(cat ./.git/config | grep 'develop = ' | awk -F' = ' 'NR==1{print $2}')
+                    git pull
+                    
+                    ;;
+                'n'|'N'|"")
+                    echo 'Commit the changes first.'
+
+                    ;;
+                *)
+                    echo "Invalid option"
+
+                    break
+                    ;;
+            esac
 
             break
             ;;
