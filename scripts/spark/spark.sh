@@ -19,12 +19,10 @@ select opt in "${options[@]}"; do
         "Install")
             tmp_dir='/tmp/spark/local'
             rm -rf $tmp_dir && mkdir -p $tmp_dir
-            wget https://archive.apache.org/dist/spark/spark-3.1.1/spark-3.1.1-bin-hadoop3.2.tgz -P $tmp_dir
-            tar -zxf $tmp_dir/spark-3.1.1-bin-hadoop3.2.tgz -C $HOME
+            wget https://archive.apache.org/dist/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz -P $tmp_dir
+            tar -zxf $tmp_dir/spark-3.1.2-bin-hadoop3.2.tgz -C $HOME
             mv $HOME/spark-* $HOME/spark
-            chmod 777 $HOME/spark
-            chmod 777 $HOME/spark/python
-            chmod 777 $HOME/spark/python/pyspark
+            chmod 777 $HOME/spark && chmod 777 $HOME/spark/python && chmod 777 $HOME/spark/python/pyspark
             wget https://repo1.maven.org/maven2/org/postgresql/postgresql/9.4.1207/postgresql-9.4.1207.jar -P $HOME/spark/jars
             wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.11.375/aws-java-sdk-bundle-1.11.375.jar -P $HOME/spark/jars
             wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.2.0/hadoop-aws-3.2.0.jar -P $HOME/spark/jars
